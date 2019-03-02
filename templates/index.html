@@ -1,0 +1,51 @@
+{%extends 'base.html'%}
+{%block title%}我有话要说{%endblock%}
+{%block content%}
+	<div>
+		{% if message %}
+			<div class='alert alert-warning'>{{message}}</div>
+		{% endif %}
+		<form name='my form' action='/' method='GET'>
+			现在的心情：<br/>
+			{% for m in moods%}
+				<input type='radio' name='mood' value='{{m.status}}'>{{m.status}}
+			{% endfor %}
+			<br/>
+			心情留言板：<br/>
+			<textarea name='user_post' rows=3 cols=70></textarea><br/>
+			<label for='user_id'>您的昵称:</label>
+			<input id='user_id' type='text' name='user_id'>
+			<label for='user_pass'>张贴密码：</label>
+			<input id='user_pass' type='password' name='user_pass'><br/>
+			<input type='submit' name='张贴'>
+			<input type='reset' name='清除重填'>
+		</form>
+<!--		Your ID:{{urid|default:'未输入id'}}</br>
+		{%if verified%}
+			<em>您通过了验证</em>
+		{%else%}
+			<em>密码或账号错误</em>
+		{%endif%}-->
+		<div class='row'>
+			<div class='col-md-12'>
+				<div class='panel panel-default'>
+					<div class='panel-heading' align='center'>
+						<h3>宝宝心里苦，宝宝只在这里说</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			{%for p in posts%}
+				<div class='col-md-4'>
+					<div class='panel panel-primary'>
+						<div class='panel-heading'>【{{p.nickname}}】觉得{{p.mood}}</div>
+						<!--把p.message中文字内容中的换行符号转换为html的<br/>和<p></p>-->
+						<div class='panel-body'>{{p.message|linebreaks}}</div>
+						<div class='panel-footer' align='right'><i><small>{{p.pub_time}}</small></i></div>
+					</div>
+				</div>
+			{%endfor%}
+		</div>
+	</div>
+{%endblock%}
