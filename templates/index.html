@@ -1,6 +1,17 @@
 {%extends 'base.html'%}
 {%block title%}我有话要说{%endblock%}
 {%block content%}
+	<script>
+		function go_delete(id)
+		{
+			var user_pass=document.getElementById('user_pass').value;
+			if(user_pass!='')
+			{
+				var usr='/'+id+'/'+user_pass;
+				window.location=usr;
+			}
+		}
+	</script>
 	<div>
 		{% if message %}
 			<div class='alert alert-warning'>{{message}}</div>
@@ -15,7 +26,7 @@
 			<textarea name='user_post' rows=3 cols=70></textarea><br/>
 			<label for='user_id'>您的昵称:</label>
 			<input id='user_id' type='text' name='user_id'>
-			<label for='user_pass'>张贴密码：</label>
+			<label for='user_pass'>张贴/删除密码：</label>
 			<input id='user_pass' type='password' name='user_pass'><br/>
 			<input type='submit' name='张贴'>
 			<input type='reset' name='清除重填'>
@@ -42,7 +53,10 @@
 						<div class='panel-heading'>【{{p.nickname}}】觉得{{p.mood}}</div>
 						<!--把p.message中文字内容中的换行符号转换为html的<br/>和<p></p>-->
 						<div class='panel-body'>{{p.message|linebreaks}}</div>
-						<div class='panel-footer' align='right'><i><small>{{p.pub_time}}</small></i></div>
+						<div class='panel-footer' align='right'>
+							<i><small>{{p.pub_time}}</small></i>
+							<span class='glyphicon glyphicon-trash' onclick='go_delete({{p.id}})'></span>
+						</div>
 					</div>
 				</div>
 			{%endfor%}
