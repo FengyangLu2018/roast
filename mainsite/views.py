@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.template.loader import get_template
 from django.http import HttpResponse,HttpResponseRedirect
 from mainsite import models,forms
+from django.core.mail import EmailMessage
 
 
 def index(request,pid=None,del_pass=None):
@@ -88,6 +89,14 @@ def contact(request):
 			user_school=form.cleaned_data['user_school']
 			user_email=form.cleaned_data['user_email']
 			user_message=form.cleaned_data['user_message']
+			mail_body=u'''
+			网友姓名：{}
+			居住城市：{}
+			是否在学：{}
+			反映意见：如下
+			{}'''.format(user_name,user_city,user_school,user_message)
+			email=EmailMessage('来自【不吐不快】网站网友的意见',mail_body,user_email,['lufengyang07@163.com'])
+			email.send()
 		else:
 			message='请检查输入信息是否正确！'
 	else:
