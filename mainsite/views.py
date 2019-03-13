@@ -9,6 +9,9 @@ from django.template.loader import get_template
 from django.http import HttpResponse,HttpResponseRedirect
 from mainsite import models,forms
 from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+from roast.settings import EMAIL_FROM
+#from django.core.mail import send_mail
 
 
 def index(request,pid=None,del_pass=None):
@@ -95,8 +98,11 @@ def contact(request):
 			是否在学：{}
 			反映意见：如下
 			{}'''.format(user_name,user_city,user_school,user_message)
-			email=EmailMessage('来自【不吐不快】网站网友的意见',mail_body,user_email,['lufengyang07@163.com'])
-			email.send()
+			email_title='来自【不吐不快】网站网友的意见'
+			email='lufengyang07@163.com'
+			send_status = send_mail(email_title, mail_body, user_email, [EMAIL_FROM])
+			#email=EmailMessage('来自【不吐不快】网站网友的意见',mail_body,user_email,['lufengyang07@163.com'])
+			#email.send()
 		else:
 			message='请检查输入信息是否正确！'
 	else:

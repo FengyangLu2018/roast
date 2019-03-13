@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for roast project.
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'mainsite',
 	'captcha',
+#	'anymail',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -127,7 +129,22 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
 	os.path.join(BASE_DIR,'static'),
 ]
+'''
+ANYMAIL = {
+    "MAILGUN_API_KEY": "147e74dc40bc15af5f70ad21198c59bf-acb0b40c-020f5e80",
+    "MAILGUN_SENDER_DOMAIN": 'sandboxe85370e589a847b6a082271c502162ed.mailgun.org',  # your Mailgun domain, if needed
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or sendgrid.EmailBackend, or...
+DEFAULT_FROM_EMAIL = "lufengyang07@163.com"  # if you don't already have this in settings
 
 EMAIL_BACKEND='django_mailgun.MailgunBackend'
 MAILGUN_ACCESS_KEY='147e74dc40bc15af5f70ad21198c59bf-acb0b40c-020f5e80'
 MAILGUN_SERVER_NAME='sandboxe85370e589a847b6a082271c502162ed.mailgun.org'
+'''
+
+EMAIL_HOST = 'smtp.163.com'#每个邮件的网址可能不一样，通过设置查找
+EMAIL_PORT =25
+EMAIL_HOST_USER='lufengyang07@163.com'
+EMAIL_HOST_PASSWORD = "fengyanglu2018"
+EMAIL_USE_TLS = False
+EMAIL_FROM='lufengyang07@163.com'
